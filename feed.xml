@@ -1,6 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T16:20:11+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;p&gt;
-第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度;
-第二节的内容是增量的高斯参数估计，在机器学习中很有用;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T20:58:57+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/pages/assets/main.css&quot;&gt;
+  &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+
+&lt;p&gt;
+第一节介绍增量计算一个理论上无限序列算数平均数，使用常数内存，O(N)的时间复杂度;
+第二节是增量高斯参数估计，在机器学习中很有用;
 第三节试图说明以上二者关联非常紧密。
 &lt;/p&gt;
 
@@ -173,7 +179,7 @@ f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_
 算数平均数？也是一样，一个数字就是1单位的可乐，可乐浓度就是数值。
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="algorithm" /><summary type="html">第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度; 第二节的内容是增量的高斯参数估计，在机器学习中很有用; 第三节试图说明以上二者关联非常紧密。</summary></entry><entry><title type="html">基本无害</title><link href="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" /><published>2018-02-11T00:00:00+08:00</published><updated>2018-02-11T00:00:00+08:00</updated><id>http://localhost:4000/pages/logs/2018/02/11/mostlyharmless</id><content type="html" xml:base="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="algorithm" /><summary type="html"></summary></entry><entry><title type="html">基本无害</title><link href="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" /><published>2018-02-11T00:00:00+08:00</published><updated>2018-02-11T00:00:00+08:00</updated><id>http://localhost:4000/pages/logs/2018/02/11/mostlyharmless</id><content type="html" xml:base="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
 '基本无害' 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。
 &lt;/p&gt;
 
