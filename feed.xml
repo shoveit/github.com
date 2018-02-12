@@ -1,4 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-11T18:26:24+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">基本无害</title><link href="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" /><published>2018-02-11T00:00:00+08:00</published><updated>2018-02-11T00:00:00+08:00</updated><id>http://localhost:4000/pages/logs/2018/02/11/mostlyharmless</id><content type="html" xml:base="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T15:14:55+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;p&gt;
+第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度;
+第二节的内容是增量的高斯参数估计，在机器学习中很有用;
+第三节试图说明以上二者关联非常紧密。
+&lt;/p&gt;
+
+&lt;div id=&quot;outline-container-sec-1&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;sec-1&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; 简单情况:计算数字序列的算数平均数&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;p&gt;
+N个数字的均值计算是可以递归的，意味着如果数字来自一个输入流，计算过程是在线的， 任意时刻的均值，都可以在前一时刻均值的基础上，通过当前新值计算出来。
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-sec-1-1&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-1-1&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; 递归形式&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+\begin{equation}
+mean_{t} = mean_{t-1} + (x_{t}-mean_{t-1})*\frac{1}{t+1}
+\end{equation}
+
+&lt;p&gt;
+上式很好验证，注意标题是 '计算 10m 数字的均值'而非‘估计’, 我们没有把这个问题看成参数估计问题，对一个有限序列，均值是一个确定的值而非随机变量。
+另外，我们对每个数字的信任程度是一样的
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-sec-1-2&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-1-2&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.2&lt;/span&gt; Python 代码验证&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-2&quot;&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-python&quot;&gt;&lt;span style=&quot;color: #b4fa70;&quot;&gt;import&lt;/span&gt; random
+&lt;span style=&quot;color: #b4fa70;&quot;&gt;import&lt;/span&gt; numpy
+&lt;span style=&quot;color: #fcaf3e;&quot;&gt;mean&lt;/span&gt; = 0
+&lt;span style=&quot;color: #fcaf3e;&quot;&gt;seq&lt;/span&gt; = random.sample(&lt;span style=&quot;color: #e090d7;&quot;&gt;range&lt;/span&gt;(100),20)
+
+&lt;span style=&quot;color: #b4fa70;&quot;&gt;print&lt;/span&gt; numpy.mean(seq)
+
+&lt;span style=&quot;color: #b4fa70;&quot;&gt;for&lt;/span&gt; (cnt,value) &lt;span style=&quot;color: #b4fa70;&quot;&gt;in&lt;/span&gt; &lt;span style=&quot;color: #e090d7;&quot;&gt;enumerate&lt;/span&gt;(seq):
+        &lt;span style=&quot;color: #fcaf3e;&quot;&gt;value&lt;/span&gt; = &lt;span style=&quot;color: #e090d7;&quot;&gt;float&lt;/span&gt;(value)
+        &lt;span style=&quot;color: #fcaf3e;&quot;&gt;mean&lt;/span&gt; = mean + (value - mean) / (cnt + 1.0)
+
+&lt;span style=&quot;color: #b4fa70;&quot;&gt;print&lt;/span&gt; mean
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-2&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;sec-2&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; 复杂情况:高斯参数估计&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-2&quot;&gt;
+&lt;p&gt;
+高斯分布有个很好的性质：
+&lt;/p&gt;
+&lt;pre class=&quot;example&quot;&gt;
+两个高斯密度函数的乘积仍然是高斯型的
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-2-1&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-2-1&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.1&lt;/span&gt; 基于旧数据的参数估计&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-1&quot;&gt;
+\begin{equation}
+f_0(x) = \frac{1}{\sqrt{2 \pi} \sigma_0} \exp^{- \frac{ ( x - \mu_0)^2}{2\sigma_0^2} } 
+\end{equation}
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-2-2&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-2-2&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.2&lt;/span&gt; 新数据提供的参数&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-2&quot;&gt;
+\begin{equation}
+f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_1^2} }
+\end{equation}
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-2-3&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-2-3&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.3&lt;/span&gt; 旧数据+新数据&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-3&quot;&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;file:///home/asenal/Documents/GIT/mostlyharmless/_site/assets/gauss_joint.png&quot; alt=&quot;gauss_joint.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+如果你的目标就是用一系列观察逐步更新 &amp;mu; 和 &amp;sigma; , 这个过程有很清楚的递归形式：
+&lt;/p&gt;
+
+&lt;p&gt;
+重写 &amp;mu;&lt;sub&gt;new&lt;/sub&gt;:
+&lt;/p&gt;
+\begin{equation}
+\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 } = \mu_0 + (\mu_1 - \mu_0) * \frac{1/\sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+\end{equation}
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-3&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;sec-3&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;3&lt;/span&gt; 合二为一&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-3&quot;&gt;
+&lt;p&gt;
+平均数在线计算的递归形式可以分成3部分：
+&lt;/p&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;当前值:mean&lt;sub&gt;t-1&lt;/sub&gt;
+&lt;/li&gt;
+&lt;li&gt;增量:
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;新数据相对当前值的偏离:(x&lt;sub&gt;t&lt;/sub&gt; - mean&lt;sub&gt;t-1&lt;/sub&gt;)
+&lt;/li&gt;
+&lt;li&gt;惯性系数: 1/t
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;分子: 新数据提供1单位信息量
+&lt;/li&gt;
+&lt;li&gt;分母: 当前值积累的全部信息量
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+高斯均值在线计算的递归形式可以分成3部分：
+&lt;/p&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;当前值:&amp;mu;&lt;sub&gt;0&lt;/sub&gt;
+&lt;/li&gt;
+&lt;li&gt;增量:
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;新数据相对当前值的偏离:(&amp;mu;&lt;sub&gt;1&lt;/sub&gt; - &amp;mu;&lt;sub&gt;0&lt;/sub&gt;)
+&lt;/li&gt;
+&lt;li&gt;惯性系数: \frac{1/\sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;分子：新数据的信息量，方差倒数
+&lt;/li&gt;
+&lt;li&gt;分母：全部数据的信息量，方差倒数
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-4&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;sec-4&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;4&lt;/span&gt; 掺水可乐&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-4&quot;&gt;
+&lt;p&gt;
+还有一种直观记忆这个公式的方法是，把高斯分布当成一瓶掺水的可乐，
+&lt;/p&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;&amp;mu; :可乐浓度
+&lt;/li&gt;
+&lt;li&gt;\frac{1}{\sigma^2} :可乐体积
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+以上类比在虚数空间上符合直觉，两瓶可乐混合后浓度和体积变化就是两个高斯分布的join过程：
+&lt;/p&gt;
+\begin{equation}
+\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+\end{equation}
+
+&lt;p&gt;
+\begin{equation}
+\frac{1}{&amp;sigma;&lt;sub&gt;new&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;} = \frac{1}{\sigma_0^2} + \frac{1}{\sigma_1^2}
+\end{equatio}
+&lt;/p&gt;
+
+&lt;p&gt;
+算数平均数？也是一样，一个数字就是1单位的可乐，可乐浓度就是数值。
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="algorithm" /><summary type="html">第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度; 第二节的内容是增量的高斯参数估计，在机器学习中很有用; 第三节试图说明以上二者关联非常紧密。</summary></entry><entry><title type="html">基本无害</title><link href="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" /><published>2018-02-11T00:00:00+08:00</published><updated>2018-02-11T00:00:00+08:00</updated><id>http://localhost:4000/pages/logs/2018/02/11/mostlyharmless</id><content type="html" xml:base="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
 '基本无害' 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。
 &lt;/p&gt;
 

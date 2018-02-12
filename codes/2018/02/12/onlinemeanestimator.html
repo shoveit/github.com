@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>平均数有什么好算的 | Mostly Harmless</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="平均数有什么好算的" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度; 第二节的内容是增量的高斯参数估计，在机器学习中很有用; 第三节试图说明以上二者关联非常紧密。" />
+<meta property="og:description" content="第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度; 第二节的内容是增量的高斯参数估计，在机器学习中很有用; 第三节试图说明以上二者关联非常紧密。" />
+<link rel="canonical" href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" />
+<meta property="og:url" content="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" />
+<meta property="og:site_name" content="Mostly Harmless" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-12T00:00:00+08:00" />
+<script type="application/ld+json">
+{"description":"第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度; 第二节的内容是增量的高斯参数估计，在机器学习中很有用; 第三节试图说明以上二者关联非常紧密。","@type":"BlogPosting","url":"http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html","headline":"平均数有什么好算的","dateModified":"2018-02-12T00:00:00+08:00","datePublished":"2018-02-12T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/pages/assets/main.css">
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/pages/feed.xml" title="Mostly Harmless" />
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" rel="author" href="/pages/">Mostly Harmless</a>
+
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/pages/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">平均数有什么好算的</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-02-12T00:00:00+08:00" itemprop="datePublished">
+        
+        Feb 12, 2018
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>
+第一节的内容会介绍增量计算一个理论上无限长的数字序列算数平均数，使用常数内存，O(N)的时间复杂度;
+第二节的内容是增量的高斯参数估计，在机器学习中很有用;
+第三节试图说明以上二者关联非常紧密。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简单情况:计算数字序列的算数平均数</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+N个数字的均值计算是可以递归的，意味着如果数字来自一个输入流，计算过程是在线的， 任意时刻的均值，都可以在前一时刻均值的基础上，通过当前新值计算出来。
+</p>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 递归形式</h3>
+<div class="outline-text-3" id="text-1-1">
+\begin{equation}
+mean_{t} = mean_{t-1} + (x_{t}-mean_{t-1})*\frac{1}{t+1}
+\end{equation}
+
+<p>
+上式很好验证，注意标题是 '计算 10m 数字的均值'而非‘估计’, 我们没有把这个问题看成参数估计问题，对一个有限序列，均值是一个确定的值而非随机变量。
+另外，我们对每个数字的信任程度是一样的
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Python 代码验证</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #b4fa70;">import</span> random
+<span style="color: #b4fa70;">import</span> numpy
+<span style="color: #fcaf3e;">mean</span> = 0
+<span style="color: #fcaf3e;">seq</span> = random.sample(<span style="color: #e090d7;">range</span>(100),20)
+
+<span style="color: #b4fa70;">print</span> numpy.mean(seq)
+
+<span style="color: #b4fa70;">for</span> (cnt,value) <span style="color: #b4fa70;">in</span> <span style="color: #e090d7;">enumerate</span>(seq):
+        <span style="color: #fcaf3e;">value</span> = <span style="color: #e090d7;">float</span>(value)
+        <span style="color: #fcaf3e;">mean</span> = mean + (value - mean) / (cnt + 1.0)
+
+<span style="color: #b4fa70;">print</span> mean
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 复杂情况:高斯参数估计</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+高斯分布有个很好的性质：
+</p>
+<pre class="example">
+两个高斯密度函数的乘积仍然是高斯型的
+</pre>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 基于旧数据的参数估计</h3>
+<div class="outline-text-3" id="text-2-1">
+\begin{equation}
+f_0(x) = \frac{1}{\sqrt{2 \pi} \sigma_0} \exp^{- \frac{ ( x - \mu_0)^2}{2\sigma_0^2} } 
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 新数据提供的参数</h3>
+<div class="outline-text-3" id="text-2-2">
+\begin{equation}
+f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_1^2} }
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 旧数据+新数据</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<div class="figure">
+<p><img src="file:///home/asenal/Documents/GIT/mostlyharmless/_site/assets/gauss_joint.png" alt="gauss_joint.png" />
+</p>
+</div>
+
+<p>
+如果你的目标就是用一系列观察逐步更新 &mu; 和 &sigma; , 这个过程有很清楚的递归形式：
+</p>
+
+<p>
+重写 &mu;<sub>new</sub>:
+</p>
+\begin{equation}
+\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 } = \mu_0 + (\mu_1 - \mu_0) * \frac{1/\sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 合二为一</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+平均数在线计算的递归形式可以分成3部分：
+</p>
+<ul class="org-ul">
+<li>当前值:mean<sub>t-1</sub>
+</li>
+<li>增量:
+<ul class="org-ul">
+<li>新数据相对当前值的偏离:(x<sub>t</sub> - mean<sub>t-1</sub>)
+</li>
+<li>惯性系数: 1/t
+<ul class="org-ul">
+<li>分子: 新数据提供1单位信息量
+</li>
+<li>分母: 当前值积累的全部信息量
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+高斯均值在线计算的递归形式可以分成3部分：
+</p>
+<ul class="org-ul">
+<li>当前值:&mu;<sub>0</sub>
+</li>
+<li>增量:
+<ul class="org-ul">
+<li>新数据相对当前值的偏离:(&mu;<sub>1</sub> - &mu;<sub>0</sub>)
+</li>
+<li>惯性系数: \frac{1/\sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+<ul class="org-ul">
+<li>分子：新数据的信息量，方差倒数
+</li>
+<li>分母：全部数据的信息量，方差倒数
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 掺水可乐</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+还有一种直观记忆这个公式的方法是，把高斯分布当成一瓶掺水的可乐，
+</p>
+<ul class="org-ul">
+<li>&mu; :可乐浓度
+</li>
+<li>\frac{1}{\sigma^2} :可乐体积
+</li>
+</ul>
+
+<p>
+以上类比在虚数空间上符合直觉，两瓶可乐混合后浓度和体积变化就是两个高斯分布的join过程：
+</p>
+\begin{equation}
+\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+\end{equation}
+
+<p>
+\begin{equation}
+\frac{1}{&sigma;<sub>new</sub><sup>2</sup>} = \frac{1}{\sigma_0^2} + \frac{1}{\sigma_1^2}
+\end{equatio}
+</p>
+
+<p>
+算数平均数？也是一样，一个数字就是1单位的可乐，可乐浓度就是数值。
+</p>
+</div>
+</div>
+
+  </div>
+
+  
+
+  <a class="u-url" href="/pages/codes/2018/02/12/onlinemeanestimator.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer h-card">
+  <data class="u-url" href="/pages/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mostly Harmless</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">
+            
+              Mostly Harmless
+            
+            </li>
+            
+            <li><a class="u-email" href="mailto:shoveit@foxmail.com">shoveit@foxmail.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+  
+  
+  
+  <li><a href="https://github.com/shoveit"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">shoveit</span></a></li>
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Absolutely useless work, personal projects for fun.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
