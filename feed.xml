@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T21:02:23+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;head&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T21:06:42+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;head&gt;
   &lt;link rel=&quot;stylesheet&quot; href=&quot;/pages/assets/main.css&quot;&gt;
   &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
@@ -6,10 +6,19 @@
 
 &lt;p&gt;
 第一节介绍增量计算一个理论上无限序列算数平均数，使用常数内存，O(N)的时间复杂度;
+&lt;/p&gt;
+
+&lt;p&gt;
 第二节是增量高斯参数估计，在机器学习中很有用;
+&lt;/p&gt;
+
+&lt;p&gt;
 第三节试图说明以上二者关联非常紧密。
 &lt;/p&gt;
 
+&lt;p&gt;
+第四节是非常原始的批处理思维， 但是有意思。
+&lt;/p&gt;
 &lt;div id=&quot;outline-container-sec-1&quot; class=&quot;outline-2&quot;&gt;
 &lt;h2 id=&quot;sec-1&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; 简单情况:计算数字序列的算数平均数&lt;/h2&gt;
 &lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
