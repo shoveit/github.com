@@ -1,8 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="http://localhost:4000/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/pages/" rel="alternate" type="text/html" /><updated>2018-02-12T21:06:42+08:00</updated><id>http://localhost:4000/pages/</id><title type="html">Mostly Harmless</title><subtitle>Absolutely useless work, personal projects for fun.</subtitle><entry><title type="html">平均数有什么好算的</title><link href="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" /><published>2018-02-12T00:00:00+08:00</published><updated>2018-02-12T00:00:00+08:00</updated><id>http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator</id><content type="html" xml:base="http://localhost:4000/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;head&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;/pages/assets/main.css&quot;&gt;
-  &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator>
+<link href="shoveit.github.io/pages/feed.xml" rel="self" type="application/atom+xml" />
+<link href="shoveit.github.io/pages/" rel="alternate" type="text/html" />
+<updated>2018-03-23T15:40:27+08:00</updated>
+<id>shoveit.github.io/pages/</id>
+<subtitle>Absolutely useless work, personal projects for fun.</subtitle>
+<entry>
+<title>barplot-in-shell</title>
+<link href="shoveit.github.io/pages/codes/2018/03/23/barplotinshell.html" rel="alternate" type="text/html" title="barplot-in-shell" />
+<published>2018-03-23T00:00:00+08:00</published>
+<updated>2018-03-23T00:00:00+08:00</updated>
+<id>shoveit.github.io/pages/codes/2018/03/23/barplotinshell</id>
+<content type="html" xml:base="shoveit.github.io/pages/codes/2018/03/23/barplotinshell.html">&lt;div id=&quot;outline-container-sec-1&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;sec-1&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; a distance example&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-sec-1-1&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-1-1&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; input&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
 
+&lt;pre class=&quot;src src-sh&quot;&gt;id lon lat
+0 48.84149223 2.276257464
+1 48.84 2.272300598
+2 48.84095567 2.271649249
+3 48.84167242 2.271160738
+4 48.83090749 2.27068362
+5 48.83824212 2.281075778
+6 48.84 2.259605685
+7 48.83841742 2.265918486
+8 48.83179548 2.271788203
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-sec-1-2&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-1-2&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.2&lt;/span&gt; logic&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-2&quot;&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-sh&quot;&gt;awk &lt;span style=&quot;color: #e9b96e;&quot;&gt;&#39;{lat1=$2;lon1=$3;dis=int(sqrt((lat1-lat0)^2+(lon1-lon0)^2)*10000);lat0=lat1;lon0=lon1;bar=&quot;&quot;;for(i=0;i&amp;lt;=dis &amp;amp;&amp;amp; i&amp;lt;=300;i++){bar=bar&quot;=&quot;};printf(&quot;%i   %3.8f   %3.8f   %s\n&quot;, $1,$2,$3,bar)}&#39;&lt;/span&gt; 2nd-batcbh-tdoa-noisecontrol-7-3.txt |less
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id=&quot;outline-container-sec-1-3&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;sec-1-3&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.3&lt;/span&gt; output&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-3&quot;&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/pages/assets/barplot-in-shell.png&quot; alt=&quot;barplot-in-shell.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+<summary>1 a distance example1.1 input</summary>
+</entry>
+<entry>
+<title>barplot-in-shell</title>
+<link href="shoveit.github.io/pages/codes/2018/02/13/barplotinshell.html" rel="alternate" type="text/html" title="barplot-in-shell" />
+<published>2018-02-13T00:00:00+08:00</published>
+<updated>2018-02-13T00:00:00+08:00</updated>
+<id>shoveit.github.io/pages/codes/2018/02/13/barplotinshell</id>
+<content type="html" xml:base="shoveit.github.io/pages/codes/2018/02/13/barplotinshell.html">&lt;p&gt;
+hello
+&lt;/p&gt;
+
+&lt;p&gt;
+{% highlight ruby %}
+def show
+  @widget = Widget(params[:id])
+  respond&lt;sub&gt;to&lt;/sub&gt; do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+{% endhighlight %}
+&lt;/p&gt;
+</content>
+<summary>hello</summary>
+</entry>
+<entry>
+<title>平均数有什么好算的</title>
+<link href="shoveit.github.io/pages/codes/2018/02/12/onlinemeanestimator.html" rel="alternate" type="text/html" title="平均数有什么好算的" />
+<published>2018-02-12T00:00:00+08:00</published>
+<updated>2018-02-12T00:00:00+08:00</updated>
+<id>shoveit.github.io/pages/codes/2018/02/12/onlinemeanestimator</id>
+<content type="html" xml:base="shoveit.github.io/pages/codes/2018/02/12/onlinemeanestimator.html">&lt;p&gt;{% include head.html %}&lt;/p&gt;
 
 &lt;p&gt;
 第一节介绍增量计算一个理论上无限序列算数平均数，使用常数内存，O(N)的时间复杂度;
@@ -23,7 +112,7 @@
 &lt;h2 id=&quot;sec-1&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; 简单情况:计算数字序列的算数平均数&lt;/h2&gt;
 &lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
 &lt;p&gt;
-N个数字的均值计算是可以递归的，意味着如果数字来自一个输入流，计算过程是在线的， 任意时刻的均值，都可以在前一时刻均值的基础上，通过当前新值计算出来。
+N个数字的均值计算可以递归，意味着如果数字来自一个输入流，计算过程是在线的， 任意时刻均值，都可以在前一时刻均值基础上，通过当前新输入算出来。
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&quot;outline-container-sec-1-1&quot; class=&quot;outline-3&quot;&gt;
@@ -34,7 +123,7 @@ mean_{t} = mean_{t-1} + (x_{t}-mean_{t-1})*\frac{1}{t+1}
 \end{equation}
 
 &lt;p&gt;
-上式很好验证，注意标题是 '计算 10m 数字的均值'而非‘估计’, 我们没有把这个问题看成参数估计问题，对一个有限序列，均值是一个确定的值而非随机变量。
+上式很好验证，注意标题是 &#39;计算 10m 数字的均值&#39;而非‘估计’, 我们没有把这个问题看成参数估计问题，对一个有限序列，均值是一个确定的值而非随机变量。
 另外，我们对每个数字的信任程度是一样的
 &lt;/p&gt;
 &lt;/div&gt;
@@ -42,22 +131,20 @@ mean_{t} = mean_{t-1} + (x_{t}-mean_{t-1})*\frac{1}{t+1}
 &lt;div id=&quot;outline-container-sec-1-2&quot; class=&quot;outline-3&quot;&gt;
 &lt;h3 id=&quot;sec-1-2&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.2&lt;/span&gt; Python 代码验证&lt;/h3&gt;
 &lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-2&quot;&gt;
-&lt;div class=&quot;org-src-container&quot;&gt;
+{% highlight python %}
+import random
+import numpy
+mean = 0
+seq = random.sample(range(100),20)
 
-&lt;pre class=&quot;src src-python&quot;&gt;&lt;span style=&quot;color: #b4fa70;&quot;&gt;import&lt;/span&gt; random
-&lt;span style=&quot;color: #b4fa70;&quot;&gt;import&lt;/span&gt; numpy
-&lt;span style=&quot;color: #fcaf3e;&quot;&gt;mean&lt;/span&gt; = 0
-&lt;span style=&quot;color: #fcaf3e;&quot;&gt;seq&lt;/span&gt; = random.sample(&lt;span style=&quot;color: #e090d7;&quot;&gt;range&lt;/span&gt;(100),20)
+print numpy.mean(seq)
 
-&lt;span style=&quot;color: #b4fa70;&quot;&gt;print&lt;/span&gt; numpy.mean(seq)
+for (cnt,value) in enumerate(seq):
+    value = float(value)
+    mean = mean + (value - mean) / (cnt + 1.0)
 
-&lt;span style=&quot;color: #b4fa70;&quot;&gt;for&lt;/span&gt; (cnt,value) &lt;span style=&quot;color: #b4fa70;&quot;&gt;in&lt;/span&gt; &lt;span style=&quot;color: #e090d7;&quot;&gt;enumerate&lt;/span&gt;(seq):
-        &lt;span style=&quot;color: #fcaf3e;&quot;&gt;value&lt;/span&gt; = &lt;span style=&quot;color: #e090d7;&quot;&gt;float&lt;/span&gt;(value)
-        &lt;span style=&quot;color: #fcaf3e;&quot;&gt;mean&lt;/span&gt; = mean + (value - mean) / (cnt + 1.0)
-
-&lt;span style=&quot;color: #b4fa70;&quot;&gt;print&lt;/span&gt; mean
-&lt;/pre&gt;
-&lt;/div&gt;
+print mean
+{% endhighlight %}
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -86,7 +173,7 @@ f_0(x) = \frac{1}{\sqrt{2 \pi} \sigma_0} \exp^{- \frac{ ( x - \mu_0)^2}{2\sigma_
 &lt;h3 id=&quot;sec-2-2&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.2&lt;/span&gt; 新数据提供的参数&lt;/h3&gt;
 &lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-2&quot;&gt;
 \begin{equation}
-f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_1^2} }
+f_1(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_1^2} }
 \end{equation}
 &lt;/div&gt;
 &lt;/div&gt;
@@ -105,7 +192,7 @@ f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_
 &lt;/p&gt;
 
 \begin{equation}
-\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 } = \mu_0 + (\mu_1 - \mu_0) * \frac{1/\sigma_0^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
+\mu_{new} = \frac{\mu_0 / \sigma_0^2 + \mu_1 / \sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 } = \mu_0 + (\mu_1 - \mu_0) * \frac{1/\sigma_1^2}{1/\sigma_0^2 + 1/\sigma_1^2 }
 \end{equation}
 &lt;/div&gt;
 &lt;/div&gt;
@@ -115,7 +202,7 @@ f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_
 &lt;h2 id=&quot;sec-3&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;3&lt;/span&gt; 合二为一&lt;/h2&gt;
 &lt;div class=&quot;outline-text-2&quot; id=&quot;text-3&quot;&gt;
 &lt;p&gt;
-平均数在线计算的递归形式可以分成3部分：
+平均数在线计算的递归形式可以分成：
 &lt;/p&gt;
 &lt;ul class=&quot;org-ul&quot;&gt;
 &lt;li&gt;当前值:mean&lt;sub&gt;t-1&lt;/sub&gt;
@@ -137,7 +224,7 @@ f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_
 &lt;/ul&gt;
 
 &lt;p&gt;
-高斯均值在线计算的递归形式可以分成3部分：
+高斯均值在线计算的递归形式可以分成：
 &lt;/p&gt;
 &lt;ul class=&quot;org-ul&quot;&gt;
 &lt;li&gt;当前值:&amp;mu;&lt;sub&gt;0&lt;/sub&gt;
@@ -188,10 +275,25 @@ f_2(x) = \frac{1}{\sqrt{2 \pi} \sigma_1} \exp^{- \frac{ ( x - \mu_1)^2}{2\sigma_
 算数平均数？也是一样，一个数字就是1单位的可乐，可乐浓度就是数值。
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="algorithm" /><summary type="html"></summary></entry><entry><title type="html">基本无害</title><link href="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" /><published>2018-02-11T00:00:00+08:00</published><updated>2018-02-11T00:00:00+08:00</updated><id>http://localhost:4000/pages/logs/2018/02/11/mostlyharmless</id><content type="html" xml:base="http://localhost:4000/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
-'基本无害' 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。
+&lt;/div&gt;
+</content>
+<category term="algorithm" />
+<summary>    </summary>
+</entry>
+<entry>
+<title>基本无害</title>
+<link href="shoveit.github.io/pages/logs/2018/02/11/mostlyharmless.html" rel="alternate" type="text/html" title="基本无害" />
+<published>2018-02-11T00:00:00+08:00</published>
+<updated>2018-02-11T00:00:00+08:00</updated>
+<id>shoveit.github.io/pages/logs/2018/02/11/mostlyharmless</id>
+<content type="html" xml:base="shoveit.github.io/pages/logs/2018/02/11/mostlyharmless.html">&lt;p&gt;
+&#39;基本无害&#39; 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。
 &lt;/p&gt;
 
 &lt;p&gt;
 一些完全没用的好东西，当前存于脑海的是在小便池安装涡轮发电机的想法，大概会朝这个方向努力。
-&lt;/p&gt;</content><author><name></name></author><summary type="html">'基本无害' 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。</summary></entry></feed>
+&lt;/p&gt;
+</content>
+<summary>&#39;基本无害&#39; 是一本小说名字，我逐渐把它作为一种判断标准，这里写的东西都可以这样归类：基本无害。</summary>
+</entry>
+</feed>
